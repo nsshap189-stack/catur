@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chess Mobile</title>
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+body {
+  margin:0;
+  background:#1e1e1e;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+}
+
+#board {
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  width:90vmin;
+  height:90vmin;
+  margin:auto;
+}
+
+.square {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:6vmin;
+}
+
+.white { background:#f0d9b5; }
+.black { background:#b58863; }
+</style>
+</head>
+
+<body>
+
+<h2>Chess Mobile ♟️</h2>
+<div id="board"></div>
+
+<script>
+const pieces={
+r:"♜",n:"♞",b:"♝",q:"♛",k:"♚",p:"♟",
+R:"♖",N:"♘",B:"♗",Q:"♕",K:"♔",P:"♙"
+};
+
+let board=[
+["r","n","b","q","k","b","n","r"],
+["p","p","p","p","p","p","p","p"],
+["","","","","","","",""],
+["","","","","","","",""],
+["","","","","","","",""],
+["","","","","","","",""],
+["P","P","P","P","P","P","P","P"],
+["R","N","B","Q","K","B","N","R"]
+];
+
+const boardDiv=document.getElementById("board");
+
+function draw(){
+  boardDiv.innerHTML="";
+  for(let r=0;r<8;r++){
+    for(let c=0;c<8;c++){
+      const sq=document.createElement("div");
+      sq.className="square "+((r+c)%2?"black":"white");
+      sq.textContent=pieces[board[r][c]]||"";
+      boardDiv.appendChild(sq);
+    }
+  }
+}
+
+draw();
+</script>
+
+<script>
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+</html>
